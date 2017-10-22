@@ -4,6 +4,7 @@ Application for quickly classifying images.
 
 ## Usage
 
+|  |  |
 |---------------|--------|
 | Next image | right, j |
 | Prev image | left, k |
