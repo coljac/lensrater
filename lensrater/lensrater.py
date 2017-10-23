@@ -1,13 +1,20 @@
 #!env python3
 
-import sys
 import os
+import sys
 # import pandas as pd
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QDialog
-from . import uidialog
+try:
+    from . import uidialog
+except ImportError:
+    try: 
+        import uidialog
+    except ModuleNotFoundError:
+        pass
+
 from collections import defaultdict
 
 

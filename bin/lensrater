@@ -1,0 +1,5 @@
+#!env python3 
+
+import lensrater
+
+lensrater.main()

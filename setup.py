@@ -11,9 +11,10 @@ setup(
     author_email="colin@coljac.net",
     url="https://github.com/coljac/lensrater",
     # data_files=[('help', ['help/help.txt'])],
-    entry_points={
-        'console_scripts': ['lensrater=lensrater:main']
-        },
+    # entry_points={
+        # 'console_scripts': ['lensrater=lensrater:main']
+        # },
+    scripts=['bin/lensrater'],
     packages=['lensrater'], 
     license='MIT License'
 )
