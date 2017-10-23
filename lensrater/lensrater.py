@@ -4,14 +4,14 @@ import os
 import sys
 # import pandas as pd
 from PyQt5 import QtGui, QtCore, QtWidgets
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QDialog
+from PyQt5.QtWidgets import QApplication, QWidget, QDialog, QMainWindow, QDesktopWidget
 try:
-    from . import uidialog
+    from . import mainwindow
 except ImportError:
     try: 
-        import uidialog
+        import mainwindow
     except ModuleNotFoundError:
         pass
 
@@ -27,7 +27,7 @@ def find_files(dirname, match=None):
     return result
 
 
-class LensRater(QDialog, uidialog.Ui_Dialog):
+class LensRater(QMainWindow, mainwindow.Ui_MainWindow):
     """ A hacked-together gui for rating lens images.
     TODO:
         Side-by-side for subtractions or single band images
@@ -38,7 +38,8 @@ class LensRater(QDialog, uidialog.Ui_Dialog):
         Access images remotely
     """
 
-    colour_codes = [Qt.black, Qt.red, Qt.green, Qt.blue, Qt.gray]
+    colour_codes = [Qt.black, QColor(27, 76, 198), QColor(234, 224, 23), QColor(198, 13, 13), Qt.gray]
+    categories = ["", "Maybe", "Probably", "Definitely"]
 
     def __init__(self, image_dir):
         super(LensRater, self).__init__()
@@ -67,10 +68,16 @@ class LensRater(QDialog, uidialog.Ui_Dialog):
         self.set_username_button.clicked.connect(self.update_username)
         self.username_edit.returnPressed.connect(self.set_username)
         self.jump_box.returnPressed.connect(self.jumped_to)
+        self.actionSave_and_Quit.triggered.connect(self.close)
 
         p = self.palette()
         p.setColor(self.backgroundRole(), Qt.white)
         self.setPalette(p)
+
+        qtRectangle = self.frameGeometry()
+        centerPoint = QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        self.move(qtRectangle.topLeft())
 
         self.set_label.setText(os.path.abspath(image_dir).split("/")[-1])
         self.username = os.environ.get("USER", "nobody")
@@ -152,7 +159,7 @@ class LensRater(QDialog, uidialog.Ui_Dialog):
         self.image_index = index
         self.current_image = self.image_files[index]
         self.set_display_image(self.image_files[index])
-        self.position_label.setText(str(index))
+        self.position_label.setText(str(index) +": " + self.current_image)
         self.progress_bar.setValue(index + 1)
         current_score = self.scores[self.current_image]
         self.set_colour_code(LensRater.colour_codes[current_score])
@@ -167,9 +174,10 @@ class LensRater(QDialog, uidialog.Ui_Dialog):
 
     def set_display_image(self, impath):
         image_profile = QtGui.QImage(self.image_dir + "/" + impath)
-        image_profile = image_profile.scaled(200, 200, \
-                    aspectRatioMode=QtCore.Qt.KeepAspectRatio, \
-                    transformMode=QtCore.Qt.SmoothTransformation)
+        # image_profile = image_profile.scaled(200, 200, \
+                    # aspectRatioMode=QtCore.Qt.KeepAspectRatio, \
+                    # transformMode=QtCore.Qt.SmoothTransformation)
+        self.image_label.setScaledContents(True)
         self.image_label.setPixmap(QtGui.QPixmap.fromImage(image_profile))
 
     def up_score(self):
@@ -195,6 +203,7 @@ class LensRater(QDialog, uidialog.Ui_Dialog):
         self.scores[self.current_image] = score
         self.set_colour_code(LensRater.colour_codes[score])
         self.toggle_radio(score)
+        self.colour_label.setText(LensRater.categories[score])
 
     def load(self):
         if os.path.isfile(self.scorefile):
