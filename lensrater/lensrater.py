@@ -254,7 +254,9 @@ class LensRater(QMainWindow, mainwindow.Ui_MainWindow):
 
 def main():
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon('icon.png'))
+    iconloc = "/".join(__file__.split("/")[0:-1]) + '/icon.png'
+    print(iconloc)
+    app.setWindowIcon(QIcon(iconloc))
     imgdir = "."
     if len(sys.argv) > 1:
         imgdir = sys.argv[1]

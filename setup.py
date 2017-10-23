@@ -1,7 +1,6 @@
 from distutils.core import setup
 from setuptools import find_packages
 
-
 setup(
     name='Lensrater',
     version='0.1',
@@ -10,11 +9,8 @@ setup(
     author="Colin Jacobs",
     author_email="colin@coljac.net",
     url="https://github.com/coljac/lensrater",
-    # data_files=[('help', ['help/help.txt'])],
-    # entry_points={
-        # 'console_scripts': ['lensrater=lensrater:main']
-        # },
+    data_files=[('lensrater', ['icon.png'])],
+    include_package_data=True,
     scripts=['bin/lensrater'],
-    packages=['lensrater'], 
-    license='MIT License'
-)
+    packages=['lensrater'],
+    license='MIT License')
