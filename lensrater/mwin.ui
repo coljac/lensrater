@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>539</width>
-    <height>541</height>
+    <width>542</width>
+    <height>539</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Lensrater</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -159,12 +159,24 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="image_label">
+         <widget class="ScaledLabel" name="image_label">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>10</width>
+            <height>10</height>
+           </size>
+          </property>
+          <property name="baseSize">
+           <size>
+            <width>100</width>
+            <height>100</height>
+           </size>
           </property>
           <property name="frameShape">
            <enum>QFrame::Box</enum>
@@ -174,6 +186,9 @@
           </property>
           <property name="text">
            <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -218,6 +233,18 @@
       </item>
       <item>
        <widget class="QLineEdit" name="jump_box">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="focusPolicy">
          <enum>Qt::ClickFocus</enum>
         </property>
@@ -263,7 +290,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>539</width>
+     <width>542</width>
      <height>19</height>
     </rect>
    </property>
@@ -281,6 +308,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScaledLabel</class>
+   <extends>QLabel</extends>
+   <header>scaledlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

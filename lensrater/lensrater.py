@@ -9,7 +9,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QDialog, QMainWindow, QDesktopWidget
 try:
     from . import mainwindow
-except ImportError:
+except (ImportError, SystemError):
     try: 
         import mainwindow
     except ModuleNotFoundError:
@@ -58,13 +58,14 @@ class LensRater(QMainWindow, mainwindow.Ui_MainWindow):
         self.progress_bar.setMaximum(len(self.image_files))
         self.scorefile = self.image_dir + "/scores.csv"
         self.scores = defaultdict(lambda: -1)
-        # self.setChildrenFocusPolicy(QtCore.Qt.NoFocus)
+        self.setChildrenFocusPolicy(QtCore.Qt.NoFocus)
         QtWidgets.qApp.installEventFilter(self)
 
         self.radios = [self.radio_0, self.radio_1, self.radio_2, self.radio_3]
         for i in range(4):
             self.radios[i].toggled.connect(self.radio_score)
-
+            # self.radios[i].setFocusPolicy(QtCore.Qt.NoFocus)
+    
         self.set_username_button.clicked.connect(self.update_username)
         self.username_edit.returnPressed.connect(self.set_username)
         self.jump_box.returnPressed.connect(self.jumped_to)
@@ -94,7 +95,7 @@ class LensRater(QMainWindow, mainwindow.Ui_MainWindow):
     def setChildrenFocusPolicy(self, policy):
         def recursiveSetChildFocusPolicy(parentQWidget):
             for childQWidget in parentQWidget.findChildren(QWidget):
-                if childQWidget == self.username_edit:
+                if childQWidget == self.username_edit or childQWidget == self.jump_box:
                     continue
                 childQWidget.setFocusPolicy(policy)
                 recursiveSetChildFocusPolicy(childQWidget)
@@ -172,12 +173,16 @@ class LensRater(QMainWindow, mainwindow.Ui_MainWindow):
         for i in range(4):
             self.radios[i].setChecked(i == score)
 
+    def resizeEvent(self, event):
+        self.goto_image(self.image_index)
+
     def set_display_image(self, impath):
+        min_dim = min(self.image_label.width(), self.image_label.height())
         image_profile = QtGui.QImage(self.image_dir + "/" + impath)
-        # image_profile = image_profile.scaled(200, 200, \
-                    # aspectRatioMode=QtCore.Qt.KeepAspectRatio, \
-                    # transformMode=QtCore.Qt.SmoothTransformation)
-        self.image_label.setScaledContents(True)
+        image_profile = image_profile.scaled(min_dim, min_dim, \
+                    aspectRatioMode=QtCore.Qt.KeepAspectRatio, \
+                    transformMode=QtCore.Qt.SmoothTransformation)
+        # self.image_label.setScaledContents(True)
         self.image_label.setPixmap(QtGui.QPixmap.fromImage(image_profile))
 
     def up_score(self):

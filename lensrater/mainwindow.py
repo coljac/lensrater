@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(539, 541)
+        MainWindow.resize(542, 539)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -98,15 +98,18 @@ class Ui_MainWindow(object):
         self.prev_button.setSizePolicy(sizePolicy)
         self.prev_button.setObjectName("prev_button")
         self.horizontalLayout_3.addWidget(self.prev_button)
-        self.image_label = QtWidgets.QLabel(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+        self.image_label = ScaledLabel(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.image_label.sizePolicy().hasHeightForWidth())
         self.image_label.setSizePolicy(sizePolicy)
+        self.image_label.setMinimumSize(QtCore.QSize(10, 10))
+        self.image_label.setBaseSize(QtCore.QSize(100, 100))
         self.image_label.setFrameShape(QtWidgets.QFrame.Box)
         self.image_label.setLineWidth(1)
         self.image_label.setText("")
+        self.image_label.setAlignment(QtCore.Qt.AlignCenter)
         self.image_label.setObjectName("image_label")
         self.horizontalLayout_3.addWidget(self.image_label)
         self.next_button = QtWidgets.QPushButton(self.centralwidget)
@@ -130,6 +133,12 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.horizontalLayout_2.addWidget(self.label)
         self.jump_box = QtWidgets.QLineEdit(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.jump_box.sizePolicy().hasHeightForWidth())
+        self.jump_box.setSizePolicy(sizePolicy)
+        self.jump_box.setMaximumSize(QtCore.QSize(50, 16777215))
         self.jump_box.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.jump_box.setAutoFillBackground(True)
         self.jump_box.setObjectName("jump_box")
@@ -151,7 +160,7 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 539, 19))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 542, 19))
         self.menubar.setObjectName("menubar")
         self.menuLensrater = QtWidgets.QMenu(self.menubar)
         self.menuLensrater.setObjectName("menuLensrater")
@@ -166,7 +175,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Lensrater"))
         self.set_label.setText(_translate("MainWindow", "set name"))
         self.radio_0.setText(_translate("MainWindow", "Not"))
         self.radio_1.setText(_translate("MainWindow", "Maybe"))
@@ -182,3 +191,4 @@ class Ui_MainWindow(object):
         self.menuLensrater.setTitle(_translate("MainWindow", "Lensrater"))
         self.actionSave_and_Quit.setText(_translate("MainWindow", "Save and Quit"))
 
+from scaledlabel import ScaledLabel
