@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>542</width>
-    <height>539</height>
+    <width>535</width>
+    <height>532</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -174,8 +174,8 @@
           </property>
           <property name="baseSize">
            <size>
-            <width>100</width>
-            <height>100</height>
+            <width>0</width>
+            <height>0</height>
            </size>
           </property>
           <property name="frameShape">
@@ -290,7 +290,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>542</width>
+     <width>535</width>
      <height>19</height>
     </rect>
    </property>
@@ -299,12 +299,24 @@
      <string>Lensrater</string>
     </property>
     <addaction name="actionSave_and_Quit"/>
+    <addaction name="actionQuit_without_saving"/>
+    <addaction name="actionReset_scores"/>
    </widget>
    <addaction name="menuLensrater"/>
   </widget>
   <action name="actionSave_and_Quit">
    <property name="text">
     <string>Save and Quit</string>
+   </property>
+  </action>
+  <action name="actionQuit_without_saving">
+   <property name="text">
+    <string>Quit without saving</string>
+   </property>
+  </action>
+  <action name="actionReset_scores">
+   <property name="text">
+    <string>Reset scores</string>
    </property>
   </action>
  </widget>

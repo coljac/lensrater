@@ -105,7 +105,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.image_label.sizePolicy().hasHeightForWidth())
         self.image_label.setSizePolicy(sizePolicy)
         self.image_label.setMinimumSize(QtCore.QSize(10, 10))
-        self.image_label.setBaseSize(QtCore.QSize(100, 100))
+        self.image_label.setBaseSize(QtCore.QSize(0, 0))
         self.image_label.setFrameShape(QtWidgets.QFrame.Box)
         self.image_label.setLineWidth(1)
         self.image_label.setText("")
@@ -167,7 +167,13 @@ class Ui_MainWindow(object):
         MainWindow.setMenuBar(self.menubar)
         self.actionSave_and_Quit = QtWidgets.QAction(MainWindow)
         self.actionSave_and_Quit.setObjectName("actionSave_and_Quit")
+        self.actionQuit_without_saving = QtWidgets.QAction(MainWindow)
+        self.actionQuit_without_saving.setObjectName("actionQuit_without_saving")
+        self.actionReset_scores = QtWidgets.QAction(MainWindow)
+        self.actionReset_scores.setObjectName("actionReset_scores")
         self.menuLensrater.addAction(self.actionSave_and_Quit)
+        self.menuLensrater.addAction(self.actionQuit_without_saving)
+        self.menuLensrater.addAction(self.actionReset_scores)
         self.menubar.addAction(self.menuLensrater.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -190,5 +196,7 @@ class Ui_MainWindow(object):
         self.set_username_button.setText(_translate("MainWindow", "Set"))
         self.menuLensrater.setTitle(_translate("MainWindow", "Lensrater"))
         self.actionSave_and_Quit.setText(_translate("MainWindow", "Save and Quit"))
+        self.actionQuit_without_saving.setText(_translate("MainWindow", "Quit without saving"))
+        self.actionReset_scores.setText(_translate("MainWindow", "Reset scores"))
 
 from scaledlabel import ScaledLabel

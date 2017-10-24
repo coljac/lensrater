@@ -70,6 +70,8 @@ class LensRater(QMainWindow, mainwindow.Ui_MainWindow):
         self.username_edit.returnPressed.connect(self.set_username)
         self.jump_box.returnPressed.connect(self.jumped_to)
         self.actionSave_and_Quit.triggered.connect(self.close)
+        self.actionQuit_without_saving.triggered.connect(self.quit)
+        self.actionReset_scores.triggered.connect(self.reset)
 
         p = self.palette()
         p.setColor(self.backgroundRole(), Qt.white)
@@ -252,6 +254,13 @@ class LensRater(QMainWindow, mainwindow.Ui_MainWindow):
                 f.write("%s,%s,%d\n" % (self.username, file_.split("/")[-1],\
                         self.scores[file_]))
 
+    def quit(self):
+        sys.exit(0)
+
+    def reset(self):
+        for key in self.scores:
+            self.scores[key] = -1
+
     def close(self):
         self.save()
         super(LensRater, self).close()
@@ -264,7 +273,6 @@ def main():
         iconloc = "../icon.png"
     if not os.path.isfile(iconloc):
         iconloc = "/".join(__file__.split("/")[0:-1]) + "/../icon.png"
-    print(iconloc)
     app.setWindowIcon(QIcon(iconloc))
     imgdir = "."
     if len(sys.argv) > 1:
