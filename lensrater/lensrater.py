@@ -7,6 +7,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QDialog, QMainWindow, QDesktopWidget
+sys.path.append(os.path.dirname(__file__)) 
 try:
     from . import mainwindow
 except (ImportError, SystemError):
