@@ -50,7 +50,7 @@ class LensRater(QMainWindow, mainwindow.Ui_MainWindow):
         self.prev_button.clicked.connect(self.prevImage)
 
         self.image_dir = image_dir
-        self.image_files = find_files(image_dir, match=".png")
+        self.image_files = sorted(find_files(image_dir, match=".png"))
         if len(self.image_files) == 0:
             print("No image files found.")
             sys.exit(0)
@@ -130,7 +130,8 @@ class LensRater(QMainWindow, mainwindow.Ui_MainWindow):
             self.goto_image(
                 min(self.image_index + 10, len(self.image_files) - 1))
         elif e.key() == QtCore.Qt.Key_Space:
-            self.up_score()
+            # self.up_score()
+            self.nextImage()
         elif e.key() == QtCore.Qt.Key_0 or e.key() == QtCore.Qt.Key_QuoteLeft:
             self.score_image(0)
         elif e.key() == QtCore.Qt.Key_1:
